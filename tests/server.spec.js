@@ -37,4 +37,15 @@ describe('server/app.js', function() {
       done();
     });
   });
+
+
+  it('page displays custom h2 message', (done) => {
+    chai.request(server)
+      .get('/')
+      .end((err, res) => {
+        expect(err).not.exist;
+        expect(JSON.stringify(res.text)).to.contain('Deployed with CircleCI and Firebase');
+        done();
+      });
+  });
 })
