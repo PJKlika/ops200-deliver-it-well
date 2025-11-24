@@ -24,21 +24,22 @@ jobs:
       - run: yarn test
 
   deploy:
-  docker:
-    - image: cimg/node:20.11
-  steps:
-    - checkout
-    - run:
-        name: Install Firebase Tools
-        command: sudo npm install -g firebase-tools
-    - run:
-        name: Setup Service Account
-        command: echo $FIREBASE_SERVICE_ACCOUNT > $HOME/serviceAccount.json
-    - run:
-        name: Deploy to Firebase
-        command: |
-          export GOOGLE_APPLICATION_CREDENTIALS=$HOME/serviceAccount.json
-          firebase deploy --only hosting --non-interactive
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - run:
+          name: Install Firebase Tools
+          command: sudo npm install -g firebase-tools
+      - run:
+          name: Setup Service Account
+          command: echo $FIREBASE_SERVICE_ACCOUNT > $HOME/serviceAccount.json
+      - run:
+          name: Deploy to Firebase
+          command: |
+            export GOOGLE_APPLICATION_CREDENTIALS=$HOME/serviceAccount.json
+            firebase deploy --only hosting --non-interactive
+
 workflows:
   version: 2
   build-deploy:
